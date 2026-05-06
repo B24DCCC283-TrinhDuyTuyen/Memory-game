@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game - Play</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body class="gameplay-body">
+    
+    <div class="gameplay-container">
+        <!-- Khu vực bàn chơi -->
+        <div id="gameBoard" class="game-board"></div>
+
+        <!-- Thanh thông tin (Sidebar) -->
+        <div class="sidebar">
+            <div class="info-box">
+                <div class="icon">🎯</div>
+                <div class="info-text">
+                    <span class="label">Level:</span>
+                    <span id="levelDisplay" class="value">1/6</span>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <div class="icon">🎯</div>
+                <div class="info-text">
+                    <span class="label">Score:</span>
+                    <span id="scoreDisplay" class="value">0</span>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <div class="icon">🎯</div>
+                <div class="info-text">
+                    <span class="label">Time:</span>
+                    <span id="timerDisplay" class="value">04:10</span>
+                </div>
+            </div>
+            
+            <button class="btn-pause">⏸</button>
+        </div>
+    </div>
+
+    <!-- BẢNG PAUSE MENU (Ẩn mặc định) -->
+    <div id="pauseOverlay" class="pause-overlay">
+        <div class="pause-modal">
+            <!-- Nút tắt (X) góc trên -->
+            <button class="btn-close-modal" id="btnResumeX">✕</button>
+            
+            <!-- Các icon trang trí tĩnh -->
+            <div class="modal-decorations">
+                <span>🐬</span>
+                <span>🎩</span>
+                <span>🌻</span>
+                <span>🤪</span>
+                <span>🎁</span>
+            </div>
+
+            <!-- Các nút chức năng -->
+            <div class="modal-buttons">
+                <button class="btn-modal" id="btnResume">CONTINUE</button>
+                <button class="btn-modal" id="btnMenu">MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script> 
+</body>
+</html>

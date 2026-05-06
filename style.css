@@ -1,0 +1,304 @@
+/* =========================================
+   1. THIẾT LẬP CHUNG & TRANG CHỦ
+   ========================================= */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+}
+
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    /* Thu nhỏ lại còn 50% kích thước khung hình */
+    background: url('public/image-21@2x.png') center/contain no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.game-title {
+    font-size: 80px;
+    color: #1e4a9e;
+    text-shadow: -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff, 4px 4px 0 #fff, 0 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 0;
+    z-index: 10;
+}
+
+.game-title span {
+    display: block;
+    color: #ffcc00;
+    margin-top: -20px;
+}
+
+.btn-play {
+    background: url('public/Button1.svg');
+    border-radius: 50px;
+    padding: 15px 60px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #cc5500;
+    transition: 0.1s;
+    margin-top: 40px;
+}
+
+.btn-play:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #cc5500;
+}
+
+.btn-how {
+    /* 1. Ảnh nền: Thêm center/100% 100% để ảnh luôn giãn vừa khít ô */
+    background: url('public/Button2@2x.png') center / 100% 100% no-repeat;
+
+    /* 2. Xóa bỏ viền mặc định của trình duyệt */
+    border: none;
+
+    /* 3. Giữ nguyên các thuộc tính bạn đã chọn */
+    border-radius: 50px;
+    padding: 15px 60px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+
+    /* 4. QUAN TRỌNG: Xóa hoặc đổi màu box-shadow này nếu nó làm lộ viền cam */
+    box-shadow: none;
+
+    /* 5. Hiệu ứng nhấn */
+    transition: 0.1s;
+    margin-top: 40px;
+}
+
+/* Thêm hiệu ứng click cho thật tay */
+.btn-how:active {
+    transform: translateY(4px);
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    /* Khoảng cách giữa 2 nút */
+
+    /* Đẩy toàn bộ cụm nút xuống dưới hẳn logo */
+    margin-top: 300px;
+}
+
+/* =========================================
+   2. BỐ CỤC MÀN HÌNH CHƠI (GAMEPLAY)
+   ========================================= */
+.gameplay-body {
+    background: url('public/image-26@2x.png') center/cover no-repeat;
+    /*background-color: #a8d573;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameplay-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+/* =========================================
+   3. SIDEBAR & THÔNG TIN
+   ========================================= */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 160px;
+}
+
+.info-box {
+    background-color: #d88714;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 0 #b36b00;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-box .icon {
+    font-size: 28px;
+}
+
+.info-box .info-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.info-box .label {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.info-box .value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-pause {
+    background-color: #79c714;
+    color: #1a4a04;
+    border: none;
+    padding: 10px;
+    font-size: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #57990b;
+    width: 60px;
+    margin: 0 auto;
+}
+
+.btn-pause:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 transparent;
+}
+
+/* =========================================
+   4. BÀN CHƠI & HIỆU ỨNG THẺ BÀI
+   ========================================= */
+.game-board {
+    display: grid;
+    gap: 15px;
+    perspective: 1000px;
+}
+
+.card {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+}
+
+.card-back {
+    background-color: #61a6f5;
+    border: 8px solid #ffffff;
+    box-sizing: border-box;
+    background-image:
+        linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0.15)),
+        linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0.15));
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+.card-front {
+    background-color: #ffffff;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+}
+
+/* =========================================
+   5. BẢNG PAUSE MENU (OVERLAY)
+   ========================================= */
+.pause-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.pause-modal {
+    background-color: #a0f4d3;
+    width: 450px;
+    padding: 30px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: 2px solid #333;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-decorations {
+    display: flex;
+    justify-content: space-around;
+    font-size: 45px;
+    margin-bottom: 40px;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-modal {
+    background:
+        repeating-linear-gradient(-45deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.1) 10px,
+            transparent 10px,
+            transparent 20px),
+        linear-gradient(to bottom, #de5df7, #b128e0);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 15px 40px;
+    width: 250px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #7b1a9e, 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: 0.1s;
+}
+
+.btn-modal:active {
+    transform: translateY(5px);
+    box-shadow: 0 0 0 #7b1a9e;
+}
