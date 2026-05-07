@@ -30,17 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const howBtn = document.querySelector('.btn-how');
-    if (howBtn) {
+    const backBtn = document.getElementById('btn-back');
+    const howScreen = document.getElementById('how-to-play-screen');
+
+    if (howBtn && howScreen && backBtn) {
         howBtn.addEventListener('click', () => {
-            alert(
-                'Cách chơi Memory Game:\n' +
-                '- Bấm PLAY để bắt đầu trò chơi.\n' +
-                '- Lật 2 thẻ mỗi lần để tìm cặp giống nhau.\n' +
-                '- Nếu 2 thẻ trùng nhau, bạn sẽ ghi điểm và thẻ sẽ ở trạng thái mở.\n' +
-                '- Nếu không trùng, thẻ sẽ úp lại sau 1 giây.\n' +
-                '- Hoàn thành tất cả các cặp trước khi hết thời gian để qua level tiếp theo.\n' +
-                'Chúc bạn chơi vui vẻ!'
-            );
+            howScreen.style.display = 'flex';
+        });
+
+        backBtn.addEventListener('click', () => {
+            howScreen.style.display = 'none';
         });
     }
 

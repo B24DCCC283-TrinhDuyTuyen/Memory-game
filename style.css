@@ -54,32 +54,121 @@ html {
     box-shadow: 0 2px 0 #cc5500;
 }
 
+/* Giữ nguyên code .btn-how của bạn */
 .btn-how {
-    /* 1. Ảnh nền: Thêm center/100% 100% để ảnh luôn giãn vừa khít ô */
     background: url('public/Button2@2x.png') center / 100% 100% no-repeat;
-
-    /* 2. Xóa bỏ viền mặc định của trình duyệt */
     border: none;
-
-    /* 3. Giữ nguyên các thuộc tính bạn đã chọn */
     border-radius: 50px;
     padding: 15px 60px;
     color: white;
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
-
-    /* 4. QUAN TRỌNG: Xóa hoặc đổi màu box-shadow này nếu nó làm lộ viền cam */
     box-shadow: none;
-
-    /* 5. Hiệu ứng nhấn */
     transition: 0.1s;
     margin-top: 40px;
 }
 
-/* Thêm hiệu ứng click cho thật tay */
 .btn-how:active {
     transform: translateY(4px);
+}
+
+/* Lớp phủ màn hình hướng dẫn */
+.how-overlay {
+    display: none;
+    /* Mặc định ẩn, dùng JS để chuyển thành 'flex' khi click */
+
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    background: url('public/image-25-2.png') center / cover no-repeat;
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+/* Nút Back ở dưới giữa màn hình */
+#btn-back {
+    position: absolute;
+    bottom: 50px;
+    /* Cách đáy màn hình 50px */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Copy style từ nút play/how của bạn để đồng bộ */
+    background: url('public/Button2@2x.png') center / 100% 100% no-repeat;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 50px;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#btn-back:active {
+    transform: translateX(-50%) translateY(4px);
+}
+
+.how-to-overlay {
+    display: none;
+    /* Mặc định ẩn, JS sẽ chuyển thành flex khi click */
+    position: fixed;
+
+    /* Căn giữa khung 80% vào giữa màn hình */
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Kích thước bạn đã chọn */
+    width: 80%;
+    height: 100%;
+
+    /* Background */
+    background: url('public/image-25-2.png') center / 100% 100% no-repeat;
+    z-index: 9999;
+
+    /* Căn giữa nút bấm bên trong */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    /* Đẩy nút xuống dưới */
+    padding-bottom: 50px;
+    /* Cách mép dưới ảnh 50px */
+}
+
+.overlay-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Nút Back nằm ở dưới giữa */
+#btn-back {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Bạn có thể tái sử dụng style nút cũ của mình tại đây */
+    background: url('public/Button2@2x.png') center / 100% 100% no-repeat;
+    border: none;
+    padding: 10px 40px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+#btn-back:active {
+    transform: translateX(-50%) translateY(4px);
 }
 
 .menu-buttons {
@@ -301,4 +390,148 @@ html {
 .btn-modal:active {
     transform: translateY(5px);
     box-shadow: 0 0 0 #7b1a9e;
+}
+
+/* =========================================
+   6. RESPONSIVE CHO LAPTOP VÀ MOBILE
+   ========================================= */
+
+@media (max-width: 1200px) {
+    .main-container {
+        background-size: 70% auto;
+        background-position: center top;
+    }
+
+    .menu-buttons {
+        margin-top: 220px;
+        gap: 18px;
+    }
+
+    .btn-play,
+    .btn-how {
+        padding: 14px 50px;
+        font-size: 26px;
+    }
+
+    .gameplay-container {
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: 320px;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .game-board {
+        gap: 12px;
+    }
+
+    .card {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow: auto;
+        min-height: 100%;
+    }
+
+    .main-container {
+        background-size: 90% auto;
+        background-position: top center;
+        height: auto;
+        min-height: 100vh;
+        padding: 40px 16px 20px;
+    }
+
+    .menu-buttons {
+        margin-top: 180px;
+        gap: 16px;
+    }
+
+    .btn-play,
+    .btn-how {
+        width: min(320px, 100%);
+        padding: 12px 28px;
+        font-size: 22px;
+    }
+
+    .game-title {
+        font-size: 52px;
+    }
+
+    .gameplay-body {
+        padding: 16px 0;
+    }
+
+    .gameplay-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 14px;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .info-box {
+        flex: 1 1 140px;
+        min-width: 140px;
+    }
+
+    .btn-pause {
+        width: auto;
+        padding: 10px 16px;
+        font-size: 20px;
+    }
+
+    .game-board {
+        width: 100%;
+        max-width: 420px;
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        width: 70px;
+        height: 70px;
+    }
+
+    .card-front {
+        font-size: 32px;
+    }
+
+    .pause-modal {
+        width: 95%;
+        max-width: 420px;
+        padding: 22px;
+    }
+
+    .modal-buttons {
+        gap: 12px;
+    }
+
+    .btn-modal {
+        width: 100%;
+        max-width: 100%;
+        font-size: 20px;
+        padding: 14px 24px;
+    }
 }
