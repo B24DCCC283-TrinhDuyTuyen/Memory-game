@@ -25,22 +25,52 @@ let gameOverOverlay;
 let gameOverMessage;
 let btnTryAgain;
 let btnEndGame;
+let resumeOverlay;
+let btnStartNewGame;
+let btnContinuePreviousGame;
+let savedProgress = null;
+let resumeSavedGame = false;
+
+function saveGameProgress() {
+    const data = {
+        level: currentLevel,
+        score,
+        timeRemaining
+    };
+    localStorage.setItem('memoryGameSave', JSON.stringify(data));
+}
+
+function loadGameProgress() {
+    const raw = localStorage.getItem('memoryGameSave');
+    if (!raw) return null;
+    try {
+        const data = JSON.parse(raw);
+        return {
+            level: Number(data.level) || 0,
+            score: Number(data.score) || 0,
+            timeRemaining: Number(data.timeRemaining) || 0
+        };
+    } catch (error) {
+        return null;
+    }
+}
+
+function clearGameProgress() {
+    localStorage.removeItem('memoryGameSave');
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const playBtn = document.querySelector('.btn-play');
-    if (playBtn) {
-        playBtn.addEventListener('click', () => {
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => {
-                window.location.href = 'gameplay.html';
-            }, 500);
-        });
-    }
 
     const howBtn = document.querySelector('.btn-how');
     const backBtn = document.getElementById('btn-back');
     const howScreen = document.getElementById('how-to-play-screen');
+
+    resumeOverlay = document.getElementById('resumeOverlay');
+    btnStartNewGame = document.getElementById('btnStartNewGame');
+    btnContinuePreviousGame = document.getElementById('btnContinuePreviousGame');
+
+    savedProgress = loadGameProgress();
 
     if (howBtn && howScreen && backBtn) {
         howBtn.addEventListener('click', () => {
@@ -49,6 +79,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         backBtn.addEventListener('click', () => {
             howScreen.style.display = 'none';
+        });
+    }
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            if (savedProgress) {
+                if (resumeOverlay) resumeOverlay.style.display = 'flex';
+            } else {
+                window.location.href = './gameplay.html';
+            }
+        });
+    }
+
+    if (btnStartNewGame && resumeOverlay) {
+        btnStartNewGame.addEventListener('click', () => {
+            clearGameProgress();
+            if (resumeOverlay) resumeOverlay.style.display = 'none';
+            window.location.href = './gameplay.html';
+        });
+    }
+
+    if (btnContinuePreviousGame && resumeOverlay) {
+        btnContinuePreviousGame.addEventListener('click', () => {
+            if (resumeOverlay) resumeOverlay.style.display = 'none';
+            window.location.href = './gameplay.html';
         });
     }
 
@@ -63,13 +118,20 @@ document.addEventListener('DOMContentLoaded', () => {
     btnEndGame = document.getElementById('btnEndGame');
 
     if (gameBoard) {
-        initGame();
+        const progress = loadGameProgress();
+        if (progress) {
+            resumeSavedGame = true;
+            currentLevel = Math.min(progress.level, GAME_LEVELS.length - 1);
+            score = progress.score;
+        }
+        initGame(resumeSavedGame);
     }
 
     if (btnContinueLevel && levelOverlay && levelMessage) {
         btnContinueLevel.addEventListener('click', () => {
             levelOverlay.style.display = 'none';
             if (isFinalLevelPopup) {
+                clearGameProgress();
                 window.location.href = './index.html';
             } else {
                 currentLevel++;
@@ -94,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnEndGame && gameOverOverlay) {
         btnEndGame.addEventListener('click', () => {
+            clearGameProgress();
             gameOverOverlay.style.display = 'none';
             window.location.href = './index.html';
         });
@@ -131,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function initGame() {
+function initGame(restoreSavedTime = false) {
     const config = GAME_LEVELS[currentLevel];
     const gameBoard = document.getElementById('gameBoard');
     if (!gameBoard) return;
@@ -145,11 +208,18 @@ function initGame() {
     }
     updateScoreDisplay();
 
-    timeRemaining = config.time;
+    if (restoreSavedTime) {
+        const stored = loadGameProgress();
+        timeRemaining = stored?.timeRemaining > 0 ? stored.timeRemaining : config.time;
+    } else {
+        timeRemaining = config.time;
+    }
     updateTimeDisplay();
 
     clearInterval(timerInterval);
     startTimer();
+
+    saveGameProgress();
 
     const levelDisplay = document.getElementById('levelDisplay');
     if (levelDisplay) levelDisplay.innerText = `${config.level}/6`;
@@ -179,6 +249,7 @@ function startTimer() {
     timerInterval = setInterval(() => {
         timeRemaining--;
         updateTimeDisplay();
+        saveGameProgress();
 
         if (timeRemaining <= 0) {
             clearInterval(timerInterval);
@@ -234,6 +305,7 @@ function checkMatch() {
 
         score += 10;
         updateScoreDisplay();
+        saveGameProgress();
 
         const config = GAME_LEVELS[currentLevel];
         if (matchedPairs === config.totalCards / 2) {
