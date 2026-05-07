@@ -18,16 +18,18 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     position: relative;
+    padding: 40px 0;
 }
 
 .game-title {
     font-size: 80px;
     color: #1e4a9e;
     text-shadow: -4px -4px 0 #fff, 4px -4px 0 #fff, -4px 4px 0 #fff, 4px 4px 0 #fff, 0 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 0;
+    margin: 0 0 40px 0;
     z-index: 10;
+    order: 1;
 }
 
 .game-title span {
@@ -173,12 +175,14 @@ html {
 .menu-buttons {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     align-items: center;
-    gap: 20px;
-    /* Khoảng cách giữa 2 nút */
+    justify-content: center;
 
-    /* Đẩy toàn bộ cụm nút xuống dưới hẳn logo */
-    margin-top: 300px;
+    z-index: 10;
+    order: 2;
+
+    transform: translateY(-60px);
 }
 
 /* =========================================
@@ -197,16 +201,21 @@ html {
     gap: 40px;
     align-items: flex-start;
     padding: 20px;
+    position: relative;
 }
 
 /* =========================================
    3. SIDEBAR & THÔNG TIN
    ========================================= */
 .sidebar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 160px;
+    z-index: 10;
 }
 
 .info-box {
@@ -420,6 +429,7 @@ html {
     }
 
     .sidebar {
+        position: static;
         width: 100%;
         max-width: 320px;
         align-items: center;
@@ -506,6 +516,7 @@ html {
         max-width: 420px;
         grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
         gap: 10px;
+        margin-left: 0;
     }
 
     .card {
