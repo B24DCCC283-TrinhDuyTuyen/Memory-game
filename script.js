@@ -16,6 +16,11 @@ let score = 0;
 let timeRemaining = 0;
 let timerInterval;
 let isPaused = false; // Cờ kiểm tra trạng thái dừng game
+let levelOverlay;
+let levelMessage;
+let btnContinueLevel;
+let btnLevelMenu;
+let isFinalLevelPopup = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     const playBtn = document.querySelector('.btn-play');
@@ -44,8 +49,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const gameBoard = document.getElementById('gameBoard');
+    levelOverlay = document.getElementById('levelOverlay');
+    levelMessage = document.getElementById('levelMessage');
+    btnContinueLevel = document.getElementById('btnContinueLevel');
+    btnLevelMenu = document.getElementById('btnLevelMenu');
+
     if (gameBoard) {
         initGame();
+    }
+
+    if (btnContinueLevel && levelOverlay && levelMessage) {
+        btnContinueLevel.addEventListener('click', () => {
+            levelOverlay.style.display = 'none';
+            if (isFinalLevelPopup) {
+                window.location.href = './index.html';
+            } else {
+                currentLevel++;
+                initGame();
+            }
+        });
+    }
+
+    if (btnLevelMenu && levelOverlay) {
+        btnLevelMenu.addEventListener('click', () => {
+            levelOverlay.style.display = 'none';
+            window.location.href = './index.html';
+        });
     }
 
     // --- LOGIC CHO BẢNG PAUSE ---
@@ -190,12 +219,19 @@ function checkMatch() {
 
             setTimeout(() => {
                 if (currentLevel < GAME_LEVELS.length - 1) {
-                    alert(`Tuyệt vời! Bạn đã vượt qua Level ${config.level} với ${score} điểm!`);
-                    currentLevel++;
-                    initGame();
+                    if (levelOverlay && levelMessage && btnContinueLevel) {
+                        levelMessage.innerText = `Tuyệt vời! Bạn đã vượt qua Level ${config.level} với ${score} điểm!`;
+                        btnContinueLevel.innerText = 'NEXT LEVEL';
+                        isFinalLevelPopup = false;
+                        levelOverlay.style.display = 'flex';
+                    }
                 } else {
-                    alert(`CHÚC MỪNG! Bạn đã phá đảo tựa game này. Tổng điểm: ${score}`);
-                    window.location.href = 'index.html';
+                    if (levelOverlay && levelMessage && btnContinueLevel) {
+                        levelMessage.innerText = `CHÚC MỪNG! Bạn đã phá đảo tựa game này. Tổng điểm: ${score}`;
+                        btnContinueLevel.innerText = 'MENU';
+                        isFinalLevelPopup = true;
+                        levelOverlay.style.display = 'flex';
+                    }
                 }
             }, 600);
         }
