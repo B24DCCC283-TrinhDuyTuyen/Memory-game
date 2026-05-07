@@ -135,7 +135,6 @@ html {
     z-index: 9999;
 
     /* Căn giữa nút bấm bên trong */
-    display: flex;
     justify-content: center;
     align-items: flex-end;
     /* Đẩy nút xuống dưới */

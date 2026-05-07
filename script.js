@@ -74,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnMenu) {
         btnMenu.addEventListener('click', () => {
-            window.location.href = 'index.html'; // Về trang chủ
+            pauseOverlay.style.display = 'none';
+            window.location.href = './index.html'; // Về trang chủ
         });
     }
 });
