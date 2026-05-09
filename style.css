@@ -545,3 +545,251 @@ html {
         padding: 14px 24px;
     }
 }
+
+/* ===============================
+   LEVEL COMPLETE EFFECT
+================================= */
+
+.level-win-effect .pause-modal {
+    animation: levelPop 0.6s ease;
+    box-shadow:
+        0 0 20px #fff,
+        0 0 40px #ffd700,
+        0 0 60px #ffb700;
+}
+
+/* .final-win-effect {
+    animation: finalBackgroundFlash 1s infinite alternate;
+} */
+
+.final-win-effect .pause-modal {
+    animation: finalPop 0.9s ease;
+    box-shadow:
+        0 0 30px #fff,
+        0 0 60px #ff00ff,
+        0 0 100px #00ffff,
+        0 0 140px #ffd700;
+}
+
+/* Popup thường */
+@keyframes levelPop {
+    0% {
+        transform: scale(0.5) rotate(-5deg);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.08) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ======================================
+   FIREWORKS + FINAL WIN EFFECT
+====================================== */
+
+.fireworks-container,
+.confetti-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+/* =========================
+   PHÁO HOA
+========================= */
+
+.firework {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: explode 1.5s infinite;
+    opacity: 0;
+}
+
+.firework1 {
+    top: 20%;
+    left: 20%;
+    background: #ff0040;
+    animation-delay: 0s;
+}
+
+.firework2 {
+    top: 25%;
+    left: 70%;
+    background: #00e5ff;
+    animation-delay: 0.3s;
+}
+
+.firework3 {
+    top: 50%;
+    left: 35%;
+    background: #ffd000;
+    animation-delay: 0.6s;
+}
+
+.firework4 {
+    top: 55%;
+    left: 75%;
+    background: #00ff6a;
+    animation-delay: 0.9s;
+}
+
+.firework5 {
+    top: 35%;
+    left: 50%;
+    background: #ff00d4;
+    animation-delay: 1.2s;
+}
+
+@keyframes explode {
+
+    0% {
+        transform: scale(0.2);
+        opacity: 1;
+        box-shadow:
+            0 0 0 0 currentColor;
+    }
+
+    100% {
+        transform: scale(8);
+        opacity: 0;
+        box-shadow:
+            0 -60px 0 currentColor,
+            0 60px 0 currentColor,
+            60px 0 0 currentColor,
+            -60px 0 0 currentColor,
+            45px 45px 0 currentColor,
+            -45px -45px 0 currentColor,
+            45px -45px 0 currentColor,
+            -45px 45px 0 currentColor;
+    }
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    animation: confettiFall linear infinite;
+    top: -20px;
+}
+
+.confetti:nth-child(1) {
+    left: 10%;
+    background: #ff0040;
+    animation-duration: 4s;
+}
+
+.confetti:nth-child(2) {
+    left: 20%;
+    background: #00e5ff;
+    animation-duration: 5s;
+}
+
+.confetti:nth-child(3) {
+    left: 30%;
+    background: #ffd000;
+    animation-duration: 3s;
+}
+
+.confetti:nth-child(4) {
+    left: 45%;
+    background: #00ff6a;
+    animation-duration: 6s;
+}
+
+.confetti:nth-child(5) {
+    left: 60%;
+    background: #ff00d4;
+    animation-duration: 4s;
+}
+
+.confetti:nth-child(6) {
+    left: 75%;
+    background: #ffffff;
+    animation-duration: 5s;
+}
+
+.confetti:nth-child(7) {
+    left: 85%;
+    background: orange;
+    animation-duration: 3s;
+}
+
+.confetti:nth-child(8) {
+    left: 95%;
+    background: lime;
+    animation-duration: 4s;
+}
+
+@keyframes confettiFall {
+
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
+
+/* =========================
+   FINAL WIN OVERLAY
+========================= */
+
+.final-win-effect {
+    animation: finalFlash 0.6s infinite alternate;
+}
+
+
+
+.final-win-effect .pause-modal {
+    animation: megaWin 1s ease;
+    box-shadow:
+        0 0 20px #fff,
+        0 0 40px #ff00d4,
+        0 0 80px #00e5ff,
+        0 0 120px #ffd000;
+}
+
+@keyframes megaWin {
+
+    0% {
+        transform: scale(0.2) rotate(-20deg);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.25) rotate(8deg);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.final-win-effect .modal-decorations span {
+    animation: iconDance 0.5s infinite alternate;
+}
+
+@keyframes iconDance {
+
+    from {
+        transform: translateY(0) rotate(-10deg) scale(1);
+    }
+
+    to {
+        transform: translateY(-15px) rotate(10deg) scale(1.4);
+    }
+}

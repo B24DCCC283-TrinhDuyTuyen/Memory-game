@@ -1,16 +1,18 @@
 const GAME_LEVELS = [
-    { level: 1, rows: 2, cols: 2, totalCards: 4, time: 30 },
-    { level: 2, rows: 2, cols: 3, totalCards: 6, time: 60 },
+    { level: 1, rows: 2, cols: 2, totalCards: 4, time: 15 },
+    { level: 2, rows: 2, cols: 3, totalCards: 6, time: 40 },
     { level: 3, rows: 2, cols: 4, totalCards: 8, time: 90 },
     { level: 4, rows: 3, cols: 4, totalCards: 12, time: 120 },
     { level: 5, rows: 4, cols: 4, totalCards: 16, time: 150 },
-    { level: 6, rows: 4, cols: 5, totalCards: 20, time: 180 }
+    { level: 6, rows: 4, cols: 5, totalCards: 20, time: 180 },
+    { level: 7, rows: 4, cols: 6, totalCards: 24, time: 210 },
+    { level: 8, rows: 5, cols: 6, totalCards: 30, time: 240 }
 ];
 
 let currentLevel = 0;
 let flippedCards = [];
 let matchedPairs = 0;
-const icons = ['🐬', '🥳', '🦁', '🍕', '🌻', '🍒', '🐶', '🎁', '🌍', '🎹'];
+const icons = ['🐬', '🥳', '🦁', '🍕', '🌻', '🍒', '🐶', '🎁', '🌍', '🎹', '🚀', '🎨', '🍦', '🏀', '🎮'];
 
 let score = 0;
 let timeRemaining = 0;
@@ -112,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     levelMessage = document.getElementById('levelMessage');
     btnContinueLevel = document.getElementById('btnContinueLevel');
     btnLevelMenu = document.getElementById('btnLevelMenu');
+    btnLevelMenu = document.getElementById('btnLevelMenu');
     gameOverOverlay = document.getElementById('gameOverOverlay');
     gameOverMessage = document.getElementById('gameOverMessage');
     btnTryAgain = document.getElementById('btnTryAgain');
@@ -128,15 +131,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnContinueLevel && levelOverlay && levelMessage) {
+
         btnContinueLevel.addEventListener('click', () => {
+
             levelOverlay.style.display = 'none';
-            if (isFinalLevelPopup) {
-                clearGameProgress();
-                window.location.href = './index.html';
-            } else {
-                currentLevel++;
-                initGame();
-            }
+
+            // Sang level tiếp theo
+            currentLevel++;
+            initGame();
+
         });
     }
 
@@ -222,7 +225,9 @@ function initGame(restoreSavedTime = false) {
     saveGameProgress();
 
     const levelDisplay = document.getElementById('levelDisplay');
-    if (levelDisplay) levelDisplay.innerText = `${config.level}/6`;
+    if (levelDisplay) {
+        levelDisplay.innerText = `${config.level}/${GAME_LEVELS.length}`;
+    }
     gameBoard.style.gridTemplateColumns = `repeat(${config.cols}, 1fr)`;
 
     let selectedIcons = icons.slice(0, config.totalCards / 2);
@@ -300,6 +305,7 @@ function checkMatch() {
     const [card1, card2] = flippedCards;
 
     if (card1.dataset.icon === card2.dataset.icon) {
+
         matchedPairs++;
         flippedCards = [];
 
@@ -308,30 +314,84 @@ function checkMatch() {
         saveGameProgress();
 
         const config = GAME_LEVELS[currentLevel];
+
+        // Hoàn thành level
         if (matchedPairs === config.totalCards / 2) {
+
             clearInterval(timerInterval);
 
             setTimeout(() => {
+
                 if (levelOverlay && levelMessage && btnContinueLevel) {
+
+                    // CHƯA PHẢI LEVEL CUỐI
                     if (currentLevel < GAME_LEVELS.length - 1) {
-                        levelMessage.innerText = `Tuyệt vời! Bạn đã vượt qua Level ${config.level} với ${score} điểm!`;
+
+                        levelMessage.innerText =
+                            `Tuyệt vời! Bạn đã vượt qua Level ${config.level} với ${score} điểm!`;
+
+                        // Hiện nút NEXT LEVEL
+                        btnContinueLevel.style.display = 'inline-block';
                         btnContinueLevel.innerText = 'NEXT LEVEL';
+
+                        // Hiện MENU
+                        btnLevelMenu.style.display = 'inline-block';
+
                         isFinalLevelPopup = false;
-                        levelOverlay.style.display = 'flex';
-                    } else {
-                        levelMessage.innerText = `CHÚC MỪNG! Bạn đã phá đảo tựa game này. Tổng điểm: ${score}`;
-                        btnContinueLevel.innerText = 'MENU';
+
+                    }
+
+                    // LEVEL CUỐI
+                    else {
+
+                        levelMessage.innerText =
+                            `CHÚC MỪNG! Bạn đã phá đảo tựa game này. Tổng điểm: ${score}`;
+
+                        // Ẩn nút NEXT LEVEL
+                        btnContinueLevel.style.display = 'none';
+
+                        // Chỉ hiện MENU
+                        btnLevelMenu.style.display = 'inline-block';
+
                         isFinalLevelPopup = true;
-                        levelOverlay.style.display = 'flex';
+                    }
+
+                    levelOverlay.style.display = 'flex';
+
+                    // Reset hiệu ứng cũ
+                    levelOverlay.classList.remove('level-win-effect');
+                    levelOverlay.classList.remove('final-win-effect');
+
+                    // Qua level thường
+                    if (!isFinalLevelPopup) {
+
+                        levelOverlay.classList.add('level-win-effect');
+
+                    }
+
+                    // Phá đảo game
+                    else {
+
+                        levelOverlay.classList.add('final-win-effect');
+
                     }
                 }
+
             }, 600);
         }
-    } else {
+
+    }
+
+    // Không khớp
+    else {
+
         setTimeout(() => {
+
             card1.classList.remove('flipped');
             card2.classList.remove('flipped');
+
             flippedCards = [];
+
         }, 1000);
     }
 }
