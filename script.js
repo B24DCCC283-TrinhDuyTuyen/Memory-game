@@ -354,6 +354,7 @@ function checkMatch() {
                         btnLevelMenu.style.display = 'inline-block';
 
                         isFinalLevelPopup = true;
+                        clearGameProgress();
                     }
 
                     levelOverlay.style.display = 'flex';

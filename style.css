@@ -404,48 +404,42 @@ html {
    6. RESPONSIVE CHO LAPTOP VÀ MOBILE
    ========================================= */
 
+/* =========================================
+   6. RESPONSIVE CHO LAPTOP VÀ MOBILE
+   ========================================= */
+
 @media (max-width: 1200px) {
     .main-container {
         background-size: 70% auto;
         background-position: center top;
     }
 
-    .menu-buttons {
-        margin-top: 220px;
-        gap: 18px;
-    }
-
-    .btn-play,
-    .btn-how {
-        padding: 14px 50px;
-        font-size: 26px;
-    }
-
     .gameplay-container {
         flex-direction: column;
-        gap: 30px;
+        gap: 20px;
         align-items: center;
-        padding: 20px;
+        padding: 10px;
     }
 
     .sidebar {
         position: static;
         width: 100%;
-        max-width: 320px;
-        align-items: center;
+        max-width: 600px;
         flex-direction: row;
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 14px;
+        gap: 10px;
     }
 
+    /* Tối ưu bàn chơi cho 6 cột trên Laptop/Tablet */
     .game-board {
-        gap: 12px;
+        gap: 10px;
+        max-width: 90vw;
     }
 
     .card {
-        width: 90px;
-        height: 90px;
+        /* Giảm nhẹ kích thước để vừa 6 cột */
+        width: 85px;
+        height: 85px;
     }
 }
 
@@ -462,129 +456,60 @@ html {
         background-position: top center;
         height: auto;
         min-height: 100vh;
-        padding: 40px 16px 20px;
-    }
-
-    .menu-buttons {
-        margin-top: 180px;
-        gap: 16px;
-    }
-
-    .btn-play,
-    .btn-how {
-        width: min(320px, 100%);
-        padding: 12px 28px;
-        font-size: 22px;
+        padding: 20px 10px;
     }
 
     .game-title {
-        font-size: 52px;
+        font-size: 42px;
     }
 
-    .gameplay-body {
-        padding: 16px 0;
-    }
-
+    /* Gameplay Mobile */
     .gameplay-container {
-        flex-direction: column;
-        align-items: center;
-        padding: 14px;
+        padding: 5px;
     }
 
     .sidebar {
-        width: 100%;
-        max-width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
+        gap: 8px;
     }
 
     .info-box {
-        flex: 1 1 140px;
-        min-width: 140px;
+        padding: 5px 10px;
+        min-width: 110px;
     }
 
-    .btn-pause {
-        width: auto;
-        padding: 10px 16px;
-        font-size: 20px;
+    .info-box .value {
+        font-size: 16px;
     }
 
+    /* Quan trọng: Tự động co giãn thẻ bài theo màn hình ngang */
     .game-board {
         width: 100%;
-        max-width: 420px;
-        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-        gap: 10px;
-        margin-left: 0;
+        /* Sử dụng 6 cột cho level cao, mỗi cột tối thiểu 50px */
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)) !important;
+        gap: 8px;
     }
 
     .card {
-        width: 70px;
-        height: 70px;
+        /* Để thẻ tự thích ứng với ô Grid */
+        width: 100%;
+        aspect-ratio: 1/1;
+        height: auto;
     }
 
     .card-front {
-        font-size: 32px;
+        font-size: 24px;
+        /* Giảm font icon để không bị tràn thẻ nhỏ */
     }
 
+    /* Modal Popup */
     .pause-modal {
-        width: 95%;
-        max-width: 420px;
-        padding: 22px;
-    }
-
-    .modal-buttons {
-        gap: 12px;
+        width: 90%;
+        padding: 20px;
     }
 
     .btn-modal {
-        width: 100%;
-        max-width: 100%;
-        font-size: 20px;
-        padding: 14px 24px;
-    }
-}
-
-/* ===============================
-   LEVEL COMPLETE EFFECT
-================================= */
-
-.level-win-effect .pause-modal {
-    animation: levelPop 0.6s ease;
-    box-shadow:
-        0 0 20px #fff,
-        0 0 40px #ffd700,
-        0 0 60px #ffb700;
-}
-
-/* .final-win-effect {
-    animation: finalBackgroundFlash 1s infinite alternate;
-} */
-
-.final-win-effect .pause-modal {
-    animation: finalPop 0.9s ease;
-    box-shadow:
-        0 0 30px #fff,
-        0 0 60px #ff00ff,
-        0 0 100px #00ffff,
-        0 0 140px #ffd700;
-}
-
-/* Popup thường */
-@keyframes levelPop {
-    0% {
-        transform: scale(0.5) rotate(-5deg);
-        opacity: 0;
-    }
-
-    60% {
-        transform: scale(1.08) rotate(2deg);
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
+        font-size: 18px;
+        padding: 12px;
     }
 }
 
