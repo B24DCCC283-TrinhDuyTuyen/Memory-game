@@ -282,7 +282,7 @@ html {
     height: 100px;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
@@ -717,4 +717,34 @@ html {
     to {
         transform: translateY(-15px) rotate(10deg) scale(1.4);
     }
+}
+
+/* Thêm vào style.css */
+.btn-leaderboard {
+    background: #d88714;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 40px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #b36b00;
+    margin-top: 10px;
+    transition: 0.1s;
+}
+
+.btn-leaderboard:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+/* Tùy chỉnh input để đẹp hơn khi hiện ra */
+#playerNameInput {
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 20px;
+    border: 3px solid #1e4a9e;
+    text-align: center;
+    font-weight: bold;
 }

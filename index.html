@@ -15,8 +15,26 @@
 
 
         <div class="menu-buttons">
-            <button class="btn-play">▶ PLAY</button>
+            <button class="btn-play" id="btnInitialPlay">▶ PLAY</button>
+
+            <div id="nameInputArea" style="display: none; flex-direction: column; align-items: center;">
+                <input type="text" id="playerNameInput" placeholder="NHẬP TÊN CỦA BẠN..." maxlength="15">
+                <button class="btn-play" id="btnStartGame">BẮT ĐẦU</button>
+            </div>
+
             <button class="btn-how">HOW TO PLAY</button>
+
+            <button class="btn-leaderboard" id="btnOpenLeaderboard">🏆 RANKING</button>
+        </div>
+
+        <div id="leaderboardOverlay" class="pause-overlay">
+            <div class="pause-modal">
+                <button class="btn-close-modal" id="btnCloseLeaderboard">✕</button>
+                <h3>🏆 BẢNG XẾP HẠNG</h3>
+                <ul id="leaderboardList"></ul>
+                <button class="btn-modal" style="margin-top:20px; width:150px;"
+                    id="btnCloseLeaderboardBtn">ĐÓNG</button>
+            </div>
         </div>
     </div>
 
