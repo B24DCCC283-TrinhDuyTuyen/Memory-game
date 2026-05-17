@@ -28,11 +28,17 @@
         </div>
 
         <div id="leaderboardOverlay" class="pause-overlay">
-            <div class="pause-modal">
+            <div class="pause-modal"
+                style="background-color: #ffd000; border: 5px solid #fff; color: #1e4a9e; min-width: 340px;">
                 <button class="btn-close-modal" id="btnCloseLeaderboard">✕</button>
-                <h3>🏆 BẢNG XẾP HẠNG</h3>
-                <ul id="leaderboardList"></ul>
-                <button class="btn-modal" style="margin-top:20px; width:150px;"
+                <h3 style="font-size: 28px; margin-top: 10px; margin-bottom: 10px;">🏆 RANKING</h3>
+
+                <div id="leaderboardList"
+                    style="padding: 10px; margin: 15px 0; max-height: 280px; overflow-y: auto; background: #fff; border-radius: 12px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.15);">
+                </div>
+
+                <button class="btn-modal"
+                    style="margin-top:5px; width:150px; background: linear-gradient(to bottom, #de5df7, #b128e0);"
                     id="btnCloseLeaderboardBtn">ĐÓNG</button>
             </div>
         </div>
@@ -46,7 +52,7 @@
     </div>
 
     <!-- Popup tiếp tục/khởi động mới khi đã chơi trước đó -->
-    <div id="resumeOverlay" class="pause-overlay">
+    <!-- <div id="resumeOverlay" class="pause-overlay">
         <div class="pause-modal">
             <div class="modal-decorations">
                 <span>⏳</span>
@@ -59,7 +65,7 @@
                 <button class="btn-modal" id="btnContinuePreviousGame">CONTINUE PREVIOUS GAME</button>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <script src="script.js"></script>
 </body>
